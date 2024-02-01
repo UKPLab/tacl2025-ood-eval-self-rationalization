@@ -1,0 +1,3 @@
+{"premise":"A person is sleeping at an airport with a hat on their head.","hypothesis":"A person sleeps at the airport with a hat on their head.","label":0,"explanation_1":"Sleeping at an airport is a rephrasing of sleeps at the airport.","explanation_2":"","explanation_3":""}
+{"premise":"Two boys in blue shirts fighting behind a gray car and two other children.","hypothesis":"the boys are brothers","label":1,"explanation_1":"Boys fight that aren't brothers.","explanation_2":"","explanation_3":""}
+{"premise":"A beach is full of many people.","hypothesis":"the beach is empty","label":2,"explanation_1":"full and empty are contradictions","explanation_2":"","explanation_3":""}

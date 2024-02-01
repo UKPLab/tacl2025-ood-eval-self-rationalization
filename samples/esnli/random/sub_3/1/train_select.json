@@ -1,0 +1,3 @@
+{"premise":"A crowd watching a dirt bike race","hypothesis":"People watching a race.","label":0,"explanation_1":"A crowd indicates that they are talking about people.","explanation_2":"","explanation_3":""}
+{"premise":"People shopping as well as a man in the background who appears to be a business owner of the fruit stand.","hypothesis":"They are at the local farmer's market.","label":1,"explanation_1":"The fruit stand might not be a local farmer's market.","explanation_2":"","explanation_3":""}
+{"premise":"2 men are plowing a field together.","hypothesis":"A mother and daughter go shopping.","label":2,"explanation_1":"2 men cannot be a mother and daughter.  Also, one cannot be plowing a field and shopping simultaneously.","explanation_2":"","explanation_3":""}

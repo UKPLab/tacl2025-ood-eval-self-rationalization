@@ -1,0 +1,3 @@
+{"premise":"Two women are sitting at a table.","hypothesis":"the women are by each other","label":0,"explanation_1":"women are two in number","explanation_2":"","explanation_3":""}
+{"premise":"Two boys are playing in the water.","hypothesis":"Two boys are playing with a ball in the water.","label":1,"explanation_1":"Two boys playing in the water are not necessarily playing with a ball.","explanation_2":"","explanation_3":""}
+{"premise":"Young boy playing in the water.","hypothesis":"Young boy playing in a sandy desert.","label":2,"explanation_1":"Water is not considered to be in a sandy desert.","explanation_2":"","explanation_3":""}

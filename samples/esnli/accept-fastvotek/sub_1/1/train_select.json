@@ -1,0 +1,3 @@
+{"premise":"A man standing in a narrow alley posing for a picture.","hypothesis":"A man is outside.","label":0,"explanation_1":"A narrow alley is located outside.","explanation_2":"","explanation_3":"","__index_level_0__":1651}
+{"premise":"A man in formal wear is posing in front of a building.","hypothesis":"the man is a farmer","label":1,"explanation_1":"not every man is a farmer.","explanation_2":"","explanation_3":"","__index_level_0__":4105}
+{"premise":"A young girl on an orange slide","hypothesis":"A young boy playing.","label":2,"explanation_1":"A young girl on a orange slide doesn't mean that she's playing with the boy.","explanation_2":"","explanation_3":"","__index_level_0__":4962}

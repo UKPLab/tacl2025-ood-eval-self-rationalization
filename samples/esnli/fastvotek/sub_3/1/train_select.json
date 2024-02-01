@@ -1,0 +1,3 @@
+{"premise":"Two young children playing outside.","hypothesis":"Two kids played.","label":0,"explanation_1":"the kids are outside","explanation_2":"","explanation_3":""}
+{"premise":"A man squatting in front a pile of objects.","hypothesis":"A man is outside.","label":1,"explanation_1":"The man can be squatting inside and not outside.","explanation_2":"","explanation_3":""}
+{"premise":"A man sits in a white plastic chair outside a small building.","hypothesis":"A man standing outside a restaurant.","label":2,"explanation_1":"one either sits or is standing, not both","explanation_2":"","explanation_3":""}

@@ -1,0 +1,3 @@
+{"premise":"A man steps onto a sidewalk.","hypothesis":"The man is outside.","label":0,"explanation_1":"If the man is on the sidewalk, then it is a logical assumption to say that he is outside.","explanation_2":"","explanation_3":"","__index_level_0__":2547}
+{"premise":"Well dressed man walks along a city street.","hypothesis":"The man is outside.","label":1,"explanation_1":"Perhaps the street is not outside.","explanation_2":"","explanation_3":"","__index_level_0__":3313}
+{"premise":"A little girl pushes a merry-go-round in a park while two other kids hold on. ee","hypothesis":"A little boy is outside","label":2,"explanation_1":"Girl and boy are different genders","explanation_2":"","explanation_3":"","__index_level_0__":3625}
