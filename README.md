@@ -43,7 +43,7 @@ python training.py --project_name your_wandb_project_name --source_dataset_name 
 ### Fine-tuning OLMo-7B
 The following command is for fine-tuning the OLMo-7B with LoRA.
 ```
-
+python training_olmo.py --project_name tacl2024jing --n_shots 8 --sample_selection random --data_sub 0
 ```
 ## Inference on OOD datasets
 ### Load/download OOD datasets

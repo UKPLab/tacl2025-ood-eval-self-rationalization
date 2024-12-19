@@ -8,3 +8,6 @@ wandb
 sentencepiece
 accelerate
 evaluate
+bitsandbytes
+peft
+trl
