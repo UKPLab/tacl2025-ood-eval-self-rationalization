@@ -101,104 +101,6 @@ def acceptability(data, save_dir, thres = 0.5): #this function is to filter unac
     return data
     # fastvotek(data, save_dir)
 
-def least_confidence(data, model_path, save_dir):
-    tokenizer = T5Tokenizer.from_pretrained(model_path,local_files_only=False)
-    model = T5ForConditionalGeneration.from_pretrained(model_path,local_files_only=False)
-    model.eval()
-    device = 'cuda' if torch.cuda.is_available() else 'cpu'
-    model.to(device)
-
-    input_string, answer_string = zip(*list(map(lambda x: formatting(x, 'esnli'), data)))
-    data = data.add_column("input_string", input_string)
-    data = data.add_column("answer_string", answer_string) 
-    df_data = data.to_pandas()
-    data_set = MyDataset(df_data,tokenizer)
-    data_loader = DataLoader(dataset=data_set, batch_size=64, shuffle=False, num_workers = 2)
-
-    pred_text = []
-    pred_prob = []
-    for i, batch in tqdm(enumerate(data_loader)):
-        input_ids, attention_mask = batch
-        input_ids = input_ids.to(device)
-        output = model.generate(input_ids = input_ids, output_scores=True, return_dict_in_generate=True)
-        transition_scores = model.compute_transition_scores(sequences= output.sequences, scores=output.scores, normalize_logits=True)
-        pred_text = pred_text + (tokenizer.batch_decode(output.sequences.squeeze(), skip_special_tokens=True))
-        pred_prob = pred_prob + (torch.exp(transition_scores)[:,0].cpu().tolist())
-        torch.cuda.empty_cache()
-
-    df_data["pred_text"] = pred_text   
-    df_data["pred_prob"] = pred_prob   
-
-    tmp_dir = save_dir
-
-    sorted_df = df_data.sort_values('pred_prob')
-    for n_shot in tqdm([1, 2, 4, 8, 16, 32, 64, 128]): #4, 8, 16, 32, 64, 128, 256, 512
-        sorted_df0 = sorted_df.loc[sorted_df['label']==0]
-        sorted_df0=sorted_df0.iloc[:n_shot]
-
-        sorted_df1 = sorted_df.loc[sorted_df['label']==1]
-        sorted_df1=sorted_df1.iloc[:n_shot]
-
-        sorted_df2 = sorted_df.loc[sorted_df['label']==2]
-        sorted_df2=sorted_df2.iloc[:n_shot]
-
-        sorted_dfc = pd.concat([sorted_df0, sorted_df1, sorted_df2])
-    
-        save_dir = tmp_dir + '/' + str(n_shot)
-        if not os.path.exists(save_dir):
-            os.makedirs(save_dir)
-        sorted_dfc.to_json(save_dir + '/train_select.json', orient='records', lines=True)
-        print("succefully saved!")
-
-def most_confidence(data, model_path, save_dir):
-    tokenizer = T5Tokenizer.from_pretrained(model_path,local_files_only=False)
-    model = T5ForConditionalGeneration.from_pretrained(model_path,local_files_only=False)
-    model.eval()
-    device = 'cuda' if torch.cuda.is_available() else 'cpu'
-    model.to(device)
-
-    input_string, answer_string = zip(*list(map(lambda x: formatting(x, 'esnli'), data)))
-    data = data.add_column("input_string", input_string)
-    data = data.add_column("answer_string", answer_string) 
-    df_data = data.to_pandas()
-    data_set = MyDataset(df_data,tokenizer)
-    data_loader = DataLoader(dataset=data_set, batch_size=64, shuffle=False, num_workers = 2)
-
-    pred_text = []
-    pred_prob = []
-    for i, batch in tqdm(enumerate(data_loader)):
-        input_ids, attention_mask = batch
-        input_ids = input_ids.to(device)
-        output = model.generate(input_ids = input_ids, output_scores=True, return_dict_in_generate=True)
-        transition_scores = model.compute_transition_scores(sequences= output.sequences, scores=output.scores, normalize_logits=True)
-        pred_text = pred_text + (tokenizer.batch_decode(output.sequences.squeeze(), skip_special_tokens=True))
-        pred_prob = pred_prob + (torch.exp(transition_scores)[:,0].cpu().tolist())
-        torch.cuda.empty_cache()
-
-    df_data["pred_text"] = pred_text   
-    df_data["pred_prob"] = pred_prob   
-
-    tmp_dir = save_dir
-
-    sorted_df = df_data.sort_values('pred_prob', ascending=False)
-    for n_shot in tqdm([1, 2]): #4, 8, 16, 32, 64, 128, 256, 512
-        sorted_df0 = sorted_df.loc[sorted_df['label']==0]
-        sorted_df0=sorted_df0.iloc[:n_shot]
-
-        sorted_df1 = sorted_df.loc[sorted_df['label']==1]
-        sorted_df1=sorted_df1.iloc[:n_shot]
-
-        sorted_df2 = sorted_df.loc[sorted_df['label']==2]
-        sorted_df2=sorted_df2.iloc[:n_shot]
-
-        sorted_dfc = pd.concat([sorted_df0, sorted_df1, sorted_df2])
-    
-        save_dir = tmp_dir + '/' + str(n_shot)
-        if not os.path.exists(save_dir):
-            os.makedirs(save_dir)
-        sorted_dfc.to_json(save_dir + '/train_select.json', orient='records', lines=True)
-        print("succefully saved!")
-
 def ambiguous(data, model_path, save_dir):
     tokenizer = T5Tokenizer.from_pretrained(model_path,local_files_only=False)
     model = T5ForConditionalGeneration.from_pretrained(model_path,local_files_only=False)
@@ -263,8 +165,6 @@ def main():
                        help="size for the subset selection")  
     parser.add_argument("--split", default=0, type=int, required=False, 
                        help="split for the subset selection") 
-    parser.add_argument("--n_shots", default=8, type=int, required=False, 
-                       help="number of samples per class")  
     parser.add_argument("--model_path", default='../model', type=str, required=False, 
                        help="model path is required for least_confidence method")
     parser.add_argument("--output_dir", default='../samples/', type=str, required=False, 
@@ -347,17 +247,7 @@ def main():
 
     if args.sample_selection == 'accept-ambiguous':
         data_sample = acceptability(data_sample, save_dir, thres = 0.3) 
-        ambiguous(data_sample, args.model_path, save_dir) 
-
-    if args.sample_selection == 'most_confidence':
-        most_confidence(data_sample, args.model_path, save_dir) 
-
-    if args.sample_selection == 'least_confidence':
-        least_confidence(data_sample, args.model_path, save_dir)
-
-    if args.sample_selection == 'accept-least_confidence':
-        data_sample = acceptability(data_sample, save_dir, thres = 0.3) 
-        least_confidence(data_sample, args.model_path, save_dir)     
+        ambiguous(data_sample, args.model_path, save_dir)    
 
 if __name__ == "__main__":
     main()
