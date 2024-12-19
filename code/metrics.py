@@ -6,7 +6,6 @@ import torch
 import datasets 
 import json
 from feature_conversion_methods import label_mapping
-from utils import sep_label_explanation
 from sklearn.metrics import classification_report, precision_recall_fscore_support, confusion_matrix
 label2text = {0: 'entailment', 1: 'neutral', 2: 'contradiction'}
 def evaluate(
@@ -17,6 +16,7 @@ def evaluate(
     task,
     labels,
     explanations,
+    label_is_string=False
 ):
 
     # for accuracy 
@@ -34,8 +34,8 @@ def evaluate(
     with open(analysis_file, "w") as g:
         for _, (pred_l, pred_e, gold) in tqdm(enumerate(zip(labels, explanations, dataset)), total=len(dataset)):
             # broken_generation = False
-
-            pred_l = label2text[pred_l]
+            if label_is_string is False:
+                pred_l = label2text[pred_l]
             # extract gold label and explanation
             gold_l = gold["label"] # 0,1[,2]   
             gold_l = label_mapping[task][gold_l] #label to text: entailment, neutral, contradiction or not_entailment

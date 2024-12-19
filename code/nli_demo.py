@@ -59,11 +59,11 @@ def get_model(model_type, device=None):
         hf_model_name = 't5-' + model_type
         print('Loading model: this will run only once.')
         if model_type == 'large':
-            model_path = '/ukp-storage-1/jyang/few-shot-fact-checking/evaluation_model/valloss=0.25146~model=t5-large~lr=0.0001~seed=1~labelagg=0_just_weights.pt'
+            model_path = '/home/few-shot-fact-checking/model/evaluation_model/valloss=0.25146~model=t5-large~lr=0.0001~seed=1~labelagg=0_just_weights.pt'
         elif model_type == '3b':
-            model_path = '/ukp-storage-1/jyang/few-shot-fact-checking/evaluation_model/valloss=0.24209~model=t5-3b~lr=0.0001~seed=1~labelagg=0_just_weights.pt'
+            model_path = '/home/few-shot-fact-checking/model/evaluation_model/valloss=0.24209~model=t5-3b~lr=0.0001~seed=1~labelagg=0_just_weights.pt'
         elif model_type == '11b':
-            model_path = '/ukp-storage-1/jyang/few-shot-fact-checking/evaluation_model/esnli_deepspeed_valloss=0.00000~model=t5-11b~lr=0.00001~seed=1~labelagg=0.pt'
+            model_path = '/home/few-shot-fact-checking/model/evaluation_model/esnli_deepspeed_valloss=0.00000~model=t5-11b~lr=0.00001~seed=1~labelagg=0.pt'
 
         if not os.path.exists(model_path):
             print('Please download weights for {} model and put in current directory.'.format(model_path))
@@ -74,7 +74,7 @@ def get_model(model_type, device=None):
         if 'model_state_dict' in state:
             state = state['model_state_dict']
 
-        _model = transformers.AutoModelForSeq2SeqLM.from_pretrained(hf_model_name)
+        _model = transformers.AutoModelForSeq2SeqLM.from_pretrained(hf_model_name,torch_dtype=torch.float16,device_map="auto")
         if model_type == '11b': # need to resize due to deepspeed, these entires are not accessed.
             _model.resize_token_embeddings(len(transformers.AutoTokenizer.from_pretrained(hf_model_name)))
         _model.load_state_dict(state)
@@ -288,6 +288,7 @@ def parse_args():
 
 
 def main():
+    
     parser = argparse.ArgumentParser()
 
     parser.add_argument("--source_dataset_name", default='esnli', type=str, required=False, 
@@ -302,8 +303,6 @@ def main():
                        help="model base")
     parser.add_argument("--sample_selection", default= 'random', type=str, required=False, 
                        help="sample selection method")
-    parser.add_argument("--n_shots", default= 8, type=int, required=False, 
-                       help="number of shots per class")
     parser.add_argument("--test_bsz", default= 128, type=int, required=False, 
                        help="test batch size")
     parser.add_argument("--result_path", default= '../result', type=str, required=False, 
@@ -314,24 +313,11 @@ def main():
     args.device = 'cuda' if torch.cuda.is_available() else 'cpu'
     np.random.seed(1)
 
-    if args.n_shots==0:
-        result_path = '/'.join(('/ukp-storage-1/jyang/few-shot-fact-checking/result','zero_shot',args.target_dataset_name))
-    else:
-        result_path = '/'.join(('/ukp-storage-1/jyang/few-shot-fact-checking/result',
-                            args.target_dataset_name,args.source_dataset_name,args.sample_selection,'sub'+str(args.data_sub),'nt'+str(args.n_shots)))
-    
     df=[] # create an empty df as it is not used for the function
-    # if os.path.exists(result_path+"/test_posthoc_analysis.txt"):
-    evaluate_score(result_path, df, args.target_dataset_name, args.test_bsz, only_correct=True)
+#     if os.path.exists(args.result_path+"/test_posthoc_analysis_1.txt"):
+#         evaluate_score(args.result_path, df, args.target_dataset_name, args.test_bsz, only_correct=True)
+    evaluate_score(args.result_path, df, args.target_dataset_name, args.test_bsz, only_correct=True)
 
-    # t5-large makes some mistakes :D
-    # [0.6507977247238159, 0.639464795589447, 0.0361432284116745]
-
-    # t5-3b correctly predicts:
-    # [0.04668688401579857, 0.650340735912323, 0.04666680842638016]
-
-    # t5-11b:
-    # [0.07693258672952652, 0.9653348326683044, 0.006359882187098265]
 
 
 if __name__ == '__main__':

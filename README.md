@@ -43,7 +43,7 @@ python training.py --project_name your_wandb_project_name --source_dataset_name 
 ### Fine-tuning OLMo-7B
 The following command is for fine-tuning the OLMo-7B with LoRA.
 ```
-python training_olmo.py --project_name tacl2024jing --n_shots 8 --sample_selection random --data_sub 0
+python training_olmo.py --project_name your_wandb_project_name --n_shots 8 --sample_selection random --data_sub 0
 ```
 ## Inference on OOD datasets
 ### Load/download OOD datasets
@@ -51,14 +51,19 @@ You can find the code to load all the OOD datasets in ```load_target_dataset.py`
 
 ### Inference with T5-Large
 ```
-
+python Inference.py --project_name your_wandb_project_name --source_dataset_name esnli --target_dataset_name sick --sample_selection random --n_shots 8 --test_bsz 64 --data_sub 0
 ```
 ### Inference with OLMo-7B
 ```
-
+python inference-olmo.py --project_name your_wandb_project_name --source_dataset_name esnli --target_dataset_name sick --sample_selection random --n_shots 8 --test_bsz 64 --data_sub 0
 ```
 Fine-tuned models and OOD generations can be found in this [drive folder](https://drive.google.com/drive/folders/0B073WIPY0sxofjhMV0E4bjdaai03ZXRYTERYQ1BTXzdnT051TkJjcEx1clBmV2xOMXRnWnM?resourcekey=0-Kx9uJNjUKuqibtO93Q0hzw&usp=drive_link).
 
 ## Reference-free evaluation metrics
-
+### Evaluation with the Acceptability score
+Run the following command for evaluating the generated explanations with the Acceptability score.
+```
+python acceptability_evaluation.py --source_dataset_name  esnli --model_type olmo --target_dataset_name sick --sample_selection random --n_shots 8 --data_sub
+```
 ## Human Evaluation
+For human evaluation, we follow examples from the Potato Annotation Tool. The code for our project can be found [here](https://github.com/jingyng/explanationtomato).
