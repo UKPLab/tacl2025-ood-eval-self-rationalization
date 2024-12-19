@@ -1,0 +1,7 @@
+pandas
+pyarrow
+datasets
+torch
+transformers
+scikit-learn
+wandb

@@ -19,10 +19,13 @@ conda activate oodeval
 ```
 2. Install the required packages
 ```
-
+pip install -r requirements.txt
 ```
-### Few-shot sample selection
+### Download source datasets
+e-SNLI dataset can be directly loaded from huggingface. For downloading the [e-FEVER dataset](https://www.research-collection.ethz.ch/handle/20.500.11850/453826), you need to ask for permission from the original paper authors.
 
+### Few-shot sample selection
+First step of our pipeline is to selection 
 ### Fine-tuning T5-Large
 
 ### Fine-tuning OLMo-7B
