@@ -66,4 +66,4 @@ Run the following command for evaluating the generated explanations with the Acc
 python acceptability_evaluation.py --source_dataset_name  esnli --model_type olmo --target_dataset_name sick --sample_selection random --n_shots 8 --data_sub
 ```
 ## Human Evaluation
-For human evaluation, we follow examples from the Potato Annotation Tool. The code for our project can be found [here](https://github.com/jingyng/explanationtomato).
+For human evaluation, we follow examples from the [Potato Annotation Tool](https://github.com/davidjurgens/potato). The code for our project can be found [here](https://github.com/jingyng/explanationtomato).
