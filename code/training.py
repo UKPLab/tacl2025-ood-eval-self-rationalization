@@ -60,10 +60,9 @@ InputDataClass = NewType("InputDataClass", Any)
 # TOKENIZER_MAPPING = {"t5": T5Tokenizer}
 
 ## learning rate found through hyperparameter tuning: runing model for 50 epochs, select the best model based on acc+bertscore
-## 5000 is a simbolic number that means full-set training
+## 5000 is a symbolic number that means full-set training
 lr_mapping = {
     "esnli": {1: 3e-5, 2: 3e-5, 4: 3e-5, 8: 3e-5, 16: 3e-5, 32: 3e-5, 64: 3e-5, 128: 3e-5, 256: 3e-6, 512: 3e-6, 5000: 3e-6},
-    # "anli": {4: 3e-5, 16: 3e-6, 64: 3e-6, 256: 3e-6, 512: 3e-6},
     "efever":{1: 3e-5, 2: 3e-5, 4: 3e-5, 8: 3e-5, 16: 3e-5, 32: 3e-5, 64: 3e-5, 128: 3e-5, 256: 3e-6, 512: 3e-6, 5000: 3e-6}
 }
 

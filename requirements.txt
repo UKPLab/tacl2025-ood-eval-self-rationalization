@@ -6,3 +6,5 @@ transformers
 scikit-learn
 wandb
 sentencepiece
+accelerate
+evaluate
