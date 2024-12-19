@@ -160,13 +160,13 @@ def main():
     parser.add_argument("--source_dataset", default='esnli', type=str, required=False, 
                        help="source dataset")
     parser.add_argument("--sample_selection", default='random', type=str, required=False, 
-                       help="sample selection method")
+                       help="sample selection method, options: random, fastvotek, ambiguous, accept-fastvotek, accept-ambiguous")
     parser.add_argument("--subset_size", default=5000, type=int, required=False, 
                        help="size for the subset selection")  
     parser.add_argument("--split", default=0, type=int, required=False, 
-                       help="split for the subset selection") 
+                       help="split for the subset selection, options: 0,1,2,3,4") 
     parser.add_argument("--model_path", default='../model', type=str, required=False, 
-                       help="model path is required for least_confidence method")
+                       help="model path is required for ambiguous method")
     parser.add_argument("--output_dir", default='../samples/', type=str, required=False, 
                        help="output directory")                   
     args = parser.parse_args()
@@ -227,7 +227,7 @@ def main():
 #         for s in tqdm(seeds):
         tmp_dir = save_dir
         sample_seed = 0
-        for ns in [1,2]:#,4,8,16,32,64,128,256,512
+        for ns in [1,2,4,8,16,32,64,128]:#,4,8,16,32,64,128,256,512
             sample = random_select(data_sample, sample_seed, ns)
             save_dir = tmp_dir + '/' + str(ns)
             if not os.path.exists(save_dir):

@@ -29,7 +29,10 @@ First step of our pipeline is to selection different number of instances for mod
 ```
 python sample_selection.py --source_dataset esnli --sample_selection random --split 0
 ```
-You can replace the ```--sample_selection``` with the other options: ```fastvotek, ambiguous, accept-fastvotek and accept-ambiguous```.
+You can replace the ```--sample_selection``` with the other options: ```fastvotek, ambiguous, accept-fastvotek``` and ```accept-ambiguous```. The ```--split``` option is for selecting from one of the five subsets (0,1,2,3,4) of the corresponding source dataset. For ```ambiguous``` selection, you need to pass the original T5 model path (with ```--model_path```) for estimating the probability of labels.
+
+We have also provided the selected samples in the folder ```./samples```.
+
 ### Fine-tuning T5-Large
 
 ### Fine-tuning OLMo-7B
