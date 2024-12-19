@@ -25,7 +25,11 @@ pip install -r requirements.txt
 e-SNLI dataset can be directly loaded from huggingface. For downloading the [e-FEVER dataset](https://www.research-collection.ethz.ch/handle/20.500.11850/453826), you need to ask for permission from the original paper authors.
 
 ### Few-shot sample selection
-First step of our pipeline is to selection 
+First step of our pipeline is to selection different number of instances for model fine-tuning. To prepare the instance selection, you can run the following command:
+```
+python sample_selection.py --source_dataset esnli --sample_selection random --split 0
+```
+You can replace the ```--sample_selection``` with the other options: ```fastvotek, ambiguous, accept-fastvotek and accept-ambiguous```.
 ### Fine-tuning T5-Large
 
 ### Fine-tuning OLMo-7B
