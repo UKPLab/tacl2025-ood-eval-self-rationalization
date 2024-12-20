@@ -68,7 +68,7 @@ You can also find fine-tuned models and OOD generated results from this [Google 
 ### Evaluation with the Acceptability score
 Run the following command for evaluating the generated explanations with the Acceptability score.
 ```
-python acceptability_evaluation.py --source_dataset_name  esnli --model_type olmo --target_dataset_name sick --sample_selection random --n_shots 8 --data_sub
+python acceptability_evaluation.py --source_dataset_name  esnli --model_type olmo --target_dataset_name sick --sample_selection random --n_shots 8 --data_sub 0
 ```
 
 ## Human Evaluation
