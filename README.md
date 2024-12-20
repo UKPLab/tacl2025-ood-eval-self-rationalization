@@ -33,31 +33,36 @@ You can replace the ```--sample_selection``` with the other options: ```fastvote
 
 We have also provided resulting selected samples in the folder ```../samples```.
 
-## Fine-tuning on source datasets
+## Supervised fine-tuning
 ### Fine-tuning T5-Large
 With the selected samples, you can run the following command to fine-tune the T5-Large model:
 ```
 python training.py --project_name your_wandb_project_name --source_dataset_name esnli --n_shots 8 --sample_selection random --data_sub 0 --save_model_path ../model/ --do_eval 
 ```
+```--do_eval``` is set to be true for using the validation set to select the best checkpoint of the model.
 
 ### Fine-tuning OLMo-7B
 The following command is for fine-tuning the OLMo-7B with LoRA.
 ```
 python training_olmo.py --project_name your_wandb_project_name --n_shots 8 --sample_selection random --data_sub 0
 ```
-## Inference on OOD datasets
+
+## OOD Inference
 ### Load/download OOD datasets
-You can find the code to load all the OOD datasets in ```load_target_dataset.py```
+You can find the code to load all the listed OOD datasets in ```load_target_dataset.py```. For some datasets, you will need to manually download from origial sources.
 
 ### Inference with T5-Large
+The following code is for inference with the fine-tuned T5-Large models.
 ```
 python Inference.py --project_name your_wandb_project_name --source_dataset_name esnli --target_dataset_name sick --sample_selection random --n_shots 8 --test_bsz 64 --data_sub 0
 ```
+
 ### Inference with OLMo-7B
+The following code is for inference with the fine-tuned OLMo models.
 ```
 python inference-olmo.py --project_name your_wandb_project_name --source_dataset_name esnli --target_dataset_name sick --sample_selection random --n_shots 8 --test_bsz 64 --data_sub 0
 ```
-Fine-tuned models and OOD generations can be found in this [drive folder](https://drive.google.com/drive/folders/0B073WIPY0sxofjhMV0E4bjdaai03ZXRYTERYQ1BTXzdnT051TkJjcEx1clBmV2xOMXRnWnM?resourcekey=0-Kx9uJNjUKuqibtO93Q0hzw&usp=drive_link).
+YOu can also find fine-tuned models and OOD generated results from this [Google Drive folder](https://drive.google.com/drive/folders/0B073WIPY0sxofjhMV0E4bjdaai03ZXRYTERYQ1BTXzdnT051TkJjcEx1clBmV2xOMXRnWnM?resourcekey=0-Kx9uJNjUKuqibtO93Q0hzw&usp=drive_link).
 
 ## Reference-free evaluation metrics
 ### Evaluation with the Acceptability score
@@ -65,5 +70,9 @@ Run the following command for evaluating the generated explanations with the Acc
 ```
 python acceptability_evaluation.py --source_dataset_name  esnli --model_type olmo --target_dataset_name sick --sample_selection random --n_shots 8 --data_sub
 ```
+
 ## Human Evaluation
 For human evaluation, we follow examples from the [Potato Annotation Tool](https://github.com/davidjurgens/potato). The code for our project can be found [here](https://github.com/UKPLab/tacl2025-ood-eval-self-rationalization/tree/main/human_eval/exp_eval2).
+
+## Citation
+In progress
