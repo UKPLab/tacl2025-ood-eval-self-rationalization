@@ -62,7 +62,7 @@ The following code is for inference with the fine-tuned OLMo models.
 ```
 python inference-olmo.py --project_name your_wandb_project_name --source_dataset_name esnli --target_dataset_name sick --sample_selection random --n_shots 8 --test_bsz 64 --data_sub 0
 ```
-YOu can also find fine-tuned models and OOD generated results from this [Google Drive folder](https://drive.google.com/drive/folders/0B073WIPY0sxofjhMV0E4bjdaai03ZXRYTERYQ1BTXzdnT051TkJjcEx1clBmV2xOMXRnWnM?resourcekey=0-Kx9uJNjUKuqibtO93Q0hzw&usp=drive_link).
+You can also find fine-tuned models and OOD generated results from this [Google Drive folder](https://drive.google.com/drive/folders/0B073WIPY0sxofjhMV0E4bjdaai03ZXRYTERYQ1BTXzdnT051TkJjcEx1clBmV2xOMXRnWnM?resourcekey=0-Kx9uJNjUKuqibtO93Q0hzw&usp=drive_link).
 
 ## Reference-free evaluation metrics
 ### Evaluation with the Acceptability score
@@ -72,7 +72,10 @@ python acceptability_evaluation.py --source_dataset_name  esnli --model_type olm
 ```
 
 ## Human Evaluation
-For human evaluation, we follow examples from the [Potato Annotation Tool](https://github.com/davidjurgens/potato). The code for our project can be found [here](https://github.com/UKPLab/tacl2025-ood-eval-self-rationalization/tree/main/human_eval/exp_eval2).
+For human evaluation, we follow examples projects from the [Potato Annotation Tool](https://github.com/davidjurgens/potato). The code for our project can be found [here](https://github.com/UKPLab/tacl2025-ood-eval-self-rationalization/tree/main/human_eval/exp_eval2).
 
 ## Citation
 In progress
+
+## Disclaimer
+This repository is published for the sole purpose of giving additional background details on the respective publication.
