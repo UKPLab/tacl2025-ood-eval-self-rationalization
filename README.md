@@ -1,4 +1,4 @@
-# [Self-Rationalization in the Wild: A Large Scale Out-of-Distribution Evaluation on NLI-related tasks](https://openreview.net/pdf?id=KYEdQdGvAR)
+# [Self-Rationalization in the Wild: A Large Scale Out-of-Distribution Evaluation on NLI-related tasks](https://arxiv.org/abs/2502.04797)
 This repository provides the code for reproducing the results from the TACL paper "Self-Rationalization in the Wild: A Large Scale Out-of-Distribution Evaluation on NLI-related tasks". In short, it contains the code for fine-tuning the two language models T5-Large and OLMo-7B (LoRA) for self-rationalization, and performing inference on 19 NLI-related Out-of-Distribution datasets.
 
 ## Abstract
