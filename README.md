@@ -75,7 +75,15 @@ python acceptability_evaluation.py --source_dataset_name  esnli --model_type olm
 For human evaluation, we follow examples projects from the [Potato Annotation Tool](https://github.com/davidjurgens/potato). The code for our project can be found [here](https://github.com/UKPLab/tacl2025-ood-eval-self-rationalization/tree/main/human_eval/exp_eval2).
 
 ## Citation
-In progress
+@article{yang2025self,
+  title={Self-Rationalization in the Wild: A Large-scale Out-of-Distribution Evaluation on NLI-related tasks},
+  author={Yang, Jing and Glockner, Max and Rocha, Anderson and Gurevych, Iryna},
+  journal={Transactions of the Association for Computational Linguistics},
+  volume={13},
+  pages={314--342},
+  year={2025},
+  publisher={MIT Press}
+}
 
 ## Disclaimer
 This repository is published for the sole purpose of giving additional background details on the respective publication.
